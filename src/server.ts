@@ -1,3 +1,7 @@
+import dotenv from 'dotenv';
+
 import app from './app';
 
-app.listen(3333);
+dotenv.config();
+
+app.listen(process.env.SV_PORT, () => process.env.SV_ADDRESS);

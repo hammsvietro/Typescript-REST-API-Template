@@ -5,11 +5,11 @@ dotenv.config({
   path: process.env.NODE_ENV === 'test' ? '.test.env' : '.env'
 });
 
-export const config = {
+
+export const databases = {
   development: {
     client: 'pg', 
     connection: {
-      // used for testswhen using sqlite
       host: process.env.DB_HOST,
       user: process.env.DB_USER,
       password: process.env.DB_PASS,
@@ -21,7 +21,7 @@ export const config = {
     },
   },
   test: {
-    client: 'sqlite3',
+    client: process.env.DB_DIALECT || 'sqlite',
     connection: {
       filename: './__tests__/database.sqlite',
     },
@@ -32,6 +32,11 @@ export const config = {
   }
 };
 
-const chosen = process.env.NODE_ENV === 'test' ? config.test : config.development;
+
+
+const chosen = process.env.NODE_ENV === 'test' ? databases.test : databases.development;
+
+export const config = chosen;
+
 
 export default knex(chosen);

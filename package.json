@@ -4,10 +4,10 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "start": "nodemon src/server.ts",
-    "pretest": "knex migrate:latest --env test",
-    "test": "jest --no-cache --runInBand --detectOpenHandles",
-    "posttest": "knex migrate:rollback --env test"
+    "start": "ts-node-dev src/server.ts",
+    "pretest": "NODE_ENV=test knex migrate:latest",
+    "test": "NODE_ENV=test jest --runInBand --forceExit",
+    "posttest": "NODE_ENV=test knex migrate:rollback"
   },
   "devDependencies": {
     "@types/cors": "^2.8.6",
@@ -21,6 +21,7 @@
     "eslint-plugin-import": "^2.20.2",
     "nodemon": "^2.0.4",
     "sucrase": "^3.15.0",
+    "supertest": "^4.0.2",
     "ts-jest": "^26.1.0",
     "typescript": "^3.9.3"
   },
@@ -33,8 +34,8 @@
     "knex": "^0.21.1",
     "pg": "^8.2.1",
     "sqlite3": "^4.2.0",
-    "supertest": "^4.0.2",
     "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.44",
     "typescript-node": "^0.1.3",
     "typescript-register": "^1.1.0",
     "typescript-require": "^0.2.10"
